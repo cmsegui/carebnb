@@ -1,0 +1,29 @@
+{
+  "name": "carebnb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "concurrently \"nodemon server.js\" \"cd ./client  && yarn start \" ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmsegui/carebnb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cmsegui/carebnb/issues"
+  },
+  "homepage": "https://github.com/cmsegui/carebnb#readme",
+  "dependencies": {
+    "body-parser": "^1.18.0",
+    "concurrently": "^3.5.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.11"
+  }
+}
