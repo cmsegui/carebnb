@@ -2,6 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+mongoose.set('debug', true);
+
 
 const UserController = require('./controllers/user');
 const app = express();
@@ -21,8 +23,9 @@ connection.on('error', (err) => {
 })
 
 app.use(bodyParser.json());
-app.use('/api/user', UserController);
 
+app.use('/api/user', UserController);
+app.use('/api/home', HomeController);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
