@@ -6,6 +6,7 @@ mongoose.set('debug', true);
 
 
 const UserController = require('./controllers/user');
+const HomeController = require('./controllers/home');
 const app = express();
 
 mongoose.Promise = global.Promise;

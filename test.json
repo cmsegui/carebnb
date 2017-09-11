@@ -1,0 +1,58 @@
+"_id" : ObjectId("59b6adcce0dd8a22ea6ff876"),
+"owner" : {
+    "email" : "kelly@email.com",
+    "password" : "hotsundae",
+    "username" : "kelly",
+    "img" : "https://i.imgur.com/qcbxgWvm.jpg",
+    "_id" : ObjectId("59b6adcce0dd8a22ea6ff874"),
+    "isOwner" : true
+},
+"img" : "https://i.imgur.com/ycdWdDXl.jpg",
+"description" : "Upscale home in Atlanta, close to many attractions.",
+"address" : {
+    "addressLine1" : "925 Canterbury Rd NE",
+    "addressLine2" : "",
+    "city" : "Atlanta",
+    "zipcode" : "30324",
+    "latitude" : 33.8266543,
+    "longitude" : -84.35714329999999,
+    "_id" : ObjectId("59b6adcce0dd8a22ea6ff872"),
+    "state" : "GA"
+},
+"rooms" : 3,
+"guests" : 7,
+"pets" : false,
+"kids" : true,
+"smoking" : false,
+"__v" : 0
+}
+{
+"_id" : ObjectId("59b6adcce0dd8a22ea6ff879"),
+"owner" : {
+    "email" : "kelly@email.com",
+    "password" : "hotsundae",
+    "username" : "kelly",
+    "img" : "https://i.imgur.com/qcbxgWvm.jpg",
+    "_id" : ObjectId("59b6adcce0dd8a22ea6ff874"),
+    "isOwner" : true
+},
+"img" : "https://i.imgur.com/Wr37V2al.jpg",
+"description" : "Urban oasis in Historic Savannah.",
+"address" : {
+    "addressLine1" : "102 E Liberty St",
+    "addressLine2" : "",
+    "city" : "Savannah",
+    "zipcode" : "31401",
+    "latitude" : 32.0746007,
+    "longitude" : -81.0920649,
+    "_id" : ObjectId("59b6adcce0dd8a22ea6ff873"),
+    "state" : "GA"
+},
+"rooms" : 3,
+"guests" : 6,
+"pets" : true,
+"kids" : true,
+"smoking" : false,
+"__v" : 0
+}
+> 
