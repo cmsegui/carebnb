@@ -1,69 +1,101 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const Home = require('../models/home');
+const User = require('../models/user');
+const Address = require('../models/address');
 const router = express.Router();
 
+router.use(bodyParser.json());
+router.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
+
 router.get('/', (req, res) => {
-    Home.find().then((homes) => {
-        res.json(homes);
-    }).catch((err) => {
-        res.json(err);
+  Home.find()
+    .then(homes => {
+      res.json(homes);
+    })
+    .catch(err => {
+      res.json(err);
     });
 });
 
-router.get('/:email', (req, res) => {
-    Home.find({'owner.email': req.params.email}).then((homes) => {
-        res.json(homes);
-    });
+router.get('/email/:email', (req, res) => {
+  Home.find({ 'owner.email': req.params.email }).then(homes => {
+    res.json(homes);
+  });
 });
 
-// router.get('/:homeId', (req, res) => {
-//     Home.findById(req.params.id).then((home) => {
-//         res.json(home);
-//     });
-// });
+router.get('/:id', (req, res) => {
+  Home.findById(req.params.id).then(home => {
+    res.json(home);
+  });
+});
 
-// router.post('/', (req, res) => {
-//     const newHome = new Home();
-//         newHome.owner = new.body.home.owner,
-//         newHome.img = new.body.home.img,
-//         newHome.description = new.body.home.description, 
-//         newHome.address = new.body.home.address,
-//         newHome.rooms = new.body.home.rooms, 
-//         newHome.guests = new.body.home.guests, 
-//         newHome.smoking = new.body.home.smoking,
-//         newHome.kids = new.body.home.kids,
-//         newHome.pets = new.body.home.pets;
-//     newHome.save().then((home) => {
-//         res.json(home);
-//     });
-
-// router.put('/:homeId', (req, res) => {
+router.post('/', (req, res) => {
+  User.find({ email: req.body.email })
+    .then(user => {
+      let addr = new Address({
+        addressLine1: req.body.addressLine1,
+        addressLine2: req.body.addressLine2,
+        city: req.body.city,
+        state: req.body.state,
+        zipcode: req.body.zipcode,
+        latitude: 0,
+        longitude: 0
+      });
+      let home = new Home({
+        owner: user,
+        img: req.body.img,
+        description: req.body.description,
+        address: addr,
+        rooms: req.body.rooms,
+        guests: req.body.guests,
+        smoking: req.body.smoking,
+        kids: req.body.kids,
+        pets: req.body.pets
+      });
+      home.save().then(newhome => {
+          res.json(newhome);
+        })
+        .catch(err => {
+          res.json(err.message);
+        });
+    })
+    .catch(err => {
+      res.json(err.message);
+    });
+});
+// router.put('/:id', (req, res) => {
 //     Home.findByIdAndUpdate(req.params.homeId, {
-//         img = new.body.home.img,
-//         description = body.home.description, 
-//         address = body.home.address,
-//         rooms = body.home.rooms, 
-//         guests = body.home.guests, 
-//         smoking = body.home.smoking,
-//         kids = body.home.kids,
-//         pets = body.home.pets
-//     })
-//         .then((home) => {
-//             return res.json(home);
-//         });
+//         'address.addressLine1': req.body.addressLine1,
+//         'address.addressLine2': req.body.addressLine2,
+//         'address.city': req.body.city,
+//         'address.state': req.body.state,
+//         'address.zipcode': req.body.zipcode,
+//         'address.latitude': 0,
+//         'address.longitude': 0,
+//         img: req.body.img,
+//         description: req.body.description,
+//         rooms: req.body.rooms,
+//         guests: req.body.guests,
+//         smoking: req.body.smoking,
+//         kids: req.body.kids,
+//         pets: req.body.pets
+//     }).then(home => {
+//         return res.json(home);
+//     });
 // });
 
 // router.delete('/:homeId', (req, res) => {
-//     Shoe.findByIdAndRemove(req.params.homeId)
+//     Home.findByIdAndRemove(req.params.id)
 //     .then((home) => {
 //         return res.json({
 //             message: 'home deleted'
 //         });
 //     });
 // });
-    
-
-    
-
 
 module.exports = router;

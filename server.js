@@ -24,11 +24,18 @@ connection.on('error', (err) => {
 })
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
 
 app.use('/api/user', UserController);
 app.use('/api/home', HomeController);
 app.get("/", (req, res) => {
   res.send("Hello World!");
+});
+app.post('/test', (req, res) => {
+  res.json({derp: req.body.derp});
 });
 
 const PORT = process.env.PORT || 3001;
