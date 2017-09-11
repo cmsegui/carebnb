@@ -28,7 +28,7 @@ const User = new Schema({
     },
 });
 
-const Home = new Home({
+const Home = new Schema({
     owner: User,
     img: String,
     description: String, 
@@ -49,7 +49,7 @@ const Home = new Home({
     }
 });
 
-const Availability = new Availability({
+const Availability = new Schema({
     home: Home,
     zipcode: String,
     startDate: {
