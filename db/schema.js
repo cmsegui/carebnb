@@ -3,17 +3,6 @@ const Schema = mongoose.Schema;
 
 mongoose.Promise = global.Promise;
 
-const Availability = new Availability({
-    startDate: {
-        type: Date,
-        default: Date.now()
-    }, 
-    endDate: {
-        type: Date, 
-        default: Date.now()
-    }
-});
-
 const Address = new Schema({
     addressLine1: String, 
     addressLine2: String, 
@@ -22,12 +11,28 @@ const Address = new Schema({
         type: String, 
         enum: ['CA', 'FL', 'GA', 'NC', 'NV', 'NY', 'PR'],
         default: 'GA'
-    }
+    },
+    zipcode: String,
+    latitude: 0,
+    longitude: 0
+});
+
+const User = new Schema({
+    email: String, 
+    password: String, 
+    username: String,
+    img: String,  
+    isOwner: {
+        type: Boolean, 
+        default: true
+    },
 });
 
 const Home = new Home({
+    owner: User,
     img: String,
     description: String, 
+    address: Address,
     rooms: 0, 
     guests: 0, 
     smoking: {
@@ -39,54 +44,28 @@ const Home = new Home({
         default: false
     }, 
     pets: {
-        type: Boolean
+        type: Boolean,
+        default: false
     }
 });
 
-const User = new Schema({
-    email: String, 
-    password: String, 
-    username: String,
-    img: String,  
-    isOwner: {
-        type: Boolean, 
-        default: true
+const Availability = new Availability({
+    home: Home,
+    zipcode: String,
+    startDate: {
+        type: Date,
+        default: Date.now()
+    }, 
+    endDate: {
+        type: Date, 
+        default: Date.now()
     }
 });
 
 Availability.pre('save', function(next) {
-    now = new Date();
-    this.updatedAt = now;
-    if (!this.createdAt) {
-        this.createdAt = now;
-    }
-    next();
-});
-
-Address.pre('save', function(next) {
-    now = new Date();
-    this.updatedAt = now;
-    if (!this.createdAt) {
-        this.createdAt = now;
-    }
-    next();
-});
-
-Home.pre('save', function(next) {
-    now = new Date();
-    this.updatedAt = now;
-    if (!this.createdAt) {
-        this.createdAt = now;
-    }
-    next();
-});
-
-User.pre('save', function(next) {
-    now = new Date();
-    this.updatedAt = now;
-    if (!this.createdAt) {
-        this.createdAt = now;
-    }
+   if (this.startDate > this.endDate) {
+       return next(new Error('Start date is after end date!'));
+   }
     next();
 });
 
