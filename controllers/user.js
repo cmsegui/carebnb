@@ -22,32 +22,23 @@ router.get("/:email", (req,res) => {
   });
   
 router.post('/', (req,res) => {
-    let newUser = new User();
-        newUser.email = req.body.email; 
-        newUser.password = req.body.password;
-        newUser.username = req.body.username;
-        newUser.img = req.body.img;  
-        newUser.isOwner = req.body.isOwner;
+    let newUser = new User(req.body);
     newUser.save().then((user) => {
       res.json(newUser)
     });    
   });
       
 
-
-// // put route
-
-// router.put('/:id', (req, res) => {
-//     User.findByIdAndUpdate(req.params.id, {
-//         email = req.body.email, 
-//         password = req.body.password,
-//         username = req.body.username,
-//         img = req.body.img, 
-//         isOwner = req.body.isOwner
-//   }).then((user) => {
-//     res.json(user);
-//   });
-// });
+router.put('/:id', (req, res) => {
+let id = req.params.id;
+User.findByIdAndUpdate(id, { $set: req.body }).then((user) => {
+    res.json(user);
+  }).catch((err) => {
+    res.json({
+      message: 'Unable to save user.'
+    });
+  });
+});
 
 
 module.exports = router;
