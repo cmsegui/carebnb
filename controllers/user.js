@@ -1,6 +1,11 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const User = require('../models/user');
+
 const router = express.Router();
+
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get("/", (req,res) => {
     User.find().then((users) => {
@@ -21,4 +26,8 @@ router.post('/', (req,res) => {
     res.json('not implementede yet');
 });
   
+
+
+// put route
+
   module.exports = router;

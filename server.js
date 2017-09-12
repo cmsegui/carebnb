@@ -24,9 +24,7 @@ connection.on('error', (err) => {
 })
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.use('/api/user', UserController);
