@@ -86,20 +86,20 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
-    Home.findByIdAndRemove(req.params.id)
-    .then((home) => {
-        if (home) {
-            return res.json({
-                message: 'home deleted'
-            });
-        }
-        else {
-            return res.json({
-                message: 'home not found'
-            });
-        }
-    });
-});
+// router.delete('/:id', (req, res) => {
+//     Home.findByIdAndRemove(req.params.id)
+//     .then((home) => {
+//         if (home) {
+//             return res.json({
+//                 message: 'home deleted'
+//             });
+//         }
+//         else {
+//             return res.json({
+//                 message: 'home not found'
+//             });
+//         }
+//     });
+// });
 
 module.exports = router;

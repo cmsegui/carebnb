@@ -22,12 +22,32 @@ router.get("/:email", (req,res) => {
   });
   
 router.post('/', (req,res) => {
-    //console.log(req.body.email); 
-    res.json('not implementede yet');
-});
-  
+    let newUser = new User();
+        newUser.email = req.body.email; 
+        newUser.password = req.body.password;
+        newUser.username = req.body.username;
+        newUser.img = req.body.img;  
+        newUser.isOwner = req.body.isOwner;
+    newUser.save().then((user) => {
+      res.json(newUser)
+    });    
+  });
+      
 
 
-// put route
+// // put route
 
-  module.exports = router;
+// router.put('/:id', (req, res) => {
+//     User.findByIdAndUpdate(req.params.id, {
+//         email = req.body.email, 
+//         password = req.body.password,
+//         username = req.body.username,
+//         img = req.body.img, 
+//         isOwner = req.body.isOwner
+//   }).then((user) => {
+//     res.json(user);
+//   });
+// });
+
+
+module.exports = router;
