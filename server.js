@@ -7,6 +7,7 @@ mongoose.set('debug', true);
 
 const UserController = require('./controllers/user');
 const HomeController = require('./controllers/home');
+//const AvailabilityController = require('./controllers/availability');
 const app = express();
 
 mongoose.Promise = global.Promise;
@@ -28,7 +29,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.use('/api/user', UserController);
-app.use('/api/home', HomeController);
+app.use('/api/user/:userId/home', HomeController);
+//app.use('/api/user/:userId/home/:homeId/availability', AvailabilityController);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });

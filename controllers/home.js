@@ -9,23 +9,15 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get('/', (req, res) => {
-    Home.find().then(homes => {
-        res.json(homes);
+  let allHomes = [];
+  Users.find({ isOwner: true })
+    .then(owner => {
+      owner.homes.map(home => {
+        allHomes.push(home);
+      });
     })
     .catch(err => {
-        res.json(err);
-    });
-});
-
-router.get('/email/:email', (req, res) => {
-    Home.find({ 'owner.email': req.params.email }).then(homes => {
-        res.json(homes);
-    });
-});
-
-router.get('/:id', (req, res) => {
-    Home.findById(req.params.id).then(home => {
-        res.json(home);
+      res.json(err);
     });
 });
 
@@ -52,9 +44,7 @@ router.post('/', (req, res) => {
         kids: req.body.kids,
         pets: req.body.pets
       });
-      home
-        .save()
-        .then(newhome => {
+      home.save().then(newhome => {
           res.json(newhome);
         })
         .catch(err => {
@@ -65,41 +55,58 @@ router.post('/', (req, res) => {
       res.json(err.message);
     });
 });
-router.put('/:id', (req, res) => {
-    Home.findByIdAndUpdate(req.params.id, {
-        'address.addressLine1': req.body.addressLine1,
-        'address.addressLine2': req.body.addressLine2,
-        'address.city': req.body.city,
-        'address.state': req.body.state,
-        'address.zipcode': req.body.zipcode,
-        'address.latitude': 0,
-        'address.longitude': 0,
-        img: req.body.img,
-        description: req.body.description,
-        rooms: req.body.rooms,
-        guests: req.body.guests,
-        smoking: req.body.smoking,
-        kids: req.body.kids,
-        pets: req.body.pets
-    }).then((home) => {
-        return res.json(home);
+
+router.put('/users/:userId/home/:homeId', (req, res) => {
+  User.findById(userId)
+    .then(user => {
+      let home = user.home.filter(home => {
+        return (home._id = req.params.homeId);
+      })[0];
+        home.address.addressLine1 = req.body.addressLine1,
+        home.address.addressLine2 = req.body.addressLine2,
+        home.address.city = req.body.city,
+        home.address.state = req.body.state,
+        home.address.zipcode = req.body.zipcode,
+        home.address.latitude = 0,
+        home.address.longitude = 0,
+        home.img = req.body.img,
+        home.description = req.body.description,
+        home.rooms = req.body.rooms,
+        home.guests = req.body.guests,
+        home.smoking = req.body.smoking,
+        home.kids = req.body.kids,
+        home.pets = req.body.pets
+
+      home.save().then(savedHome => {
+          res.json(savedHome);
+        })
+        .catch(err => {
+          res.json({
+            message: 'Unable to save home.'
+          });
+        });
+    })
+    .catch(err => {
+      res.json({
+        mesage: 'Unable to find user'
+      });
     });
 });
 
-// router.delete('/:id', (req, res) => {
-//     Home.findByIdAndRemove(req.params.id)
-//     .then((home) => {
-//         if (home) {
-//             return res.json({
-//                 message: 'home deleted'
-//             });
-//         }
-//         else {
-//             return res.json({
-//                 message: 'home not found'
-//             });
-//         }
-//     });
-// });
+router.delete('/:id', (req, res) => {
+        Home.findByIdAndRemove(req.params.id)
+        .then((home) => {
+            if (home) {
+                return res.json({
+                    message: 'home deleted'
+                });
+            }
+            else {
+                return res.json({
+                    message: 'home not found'
+                });
+            }
+        });
+});
 
 module.exports = router;
