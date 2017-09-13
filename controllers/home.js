@@ -3,27 +3,14 @@ const bodyParser = require('body-parser');
 const Home = require('../models/home');
 const User = require('../models/user');
 const Address = require('../models/address');
-const router = express.Router();
+const router = express.Router({ mergeParams: true});
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
-router.get('/', (req, res) => {
-  let allHomes = [];
-  Users.find({ isOwner: true })
-    .then(owner => {
-      owner.homes.map(home => {
-        allHomes.push(home);
-      });
-    })
-    .catch(err => {
-      res.json(err);
-    });
-});
-
 router.post('/', (req, res) => {
-  User.find({ email: req.body.email })
-    .then(user => {
+  User.findById(req.params.userId)
+    .then((user) => {
       let addr = new Address({
         addressLine1: req.body.addressLine1,
         addressLine2: req.body.addressLine2,
@@ -34,7 +21,6 @@ router.post('/', (req, res) => {
         longitude: 0
       });
       let home = new Home({
-        owner: user,
         img: req.body.img,
         description: req.body.description,
         address: addr,
@@ -44,24 +30,29 @@ router.post('/', (req, res) => {
         kids: req.body.kids,
         pets: req.body.pets
       });
-      home.save().then(newhome => {
-          res.json(newhome);
-        })
-        .catch(err => {
-          res.json(err.message);
-        });
+      // add home to user's home list
+      user.homes.push(home);
+      // save the user
+      user.save().then((u) => {
+          res.json(home);
+      })
+      .catch(err => {
+        res.json({message: 'unable to save home'});
+      });
     })
-    .catch(err => {
-      res.json(err.message);
+    .catch((err) => {
+      res.json({ message: 'unable to find user'});
     });
 });
 
-router.put('/users/:userId/home/:homeId', (req, res) => {
-  User.findById(userId)
-    .then(user => {
-      let home = user.home.filter(home => {
-        return (home._id = req.params.homeId);
+router.put('/:homeId', (req, res) => {
+  User.findById(req.params.userId)
+    .then((user) => {
+      let home = user.homes.filter((home) => {
+        // adding an emoty string here to convert home._id to string
+        return (home._id + '' === req.params.homeId);
       })[0];
+      if(home) {
         home.address.addressLine1 = req.body.addressLine1,
         home.address.addressLine2 = req.body.addressLine2,
         home.address.city = req.body.city,
@@ -77,36 +68,34 @@ router.put('/users/:userId/home/:homeId', (req, res) => {
         home.kids = req.body.kids,
         home.pets = req.body.pets
 
-      home.save().then(savedHome => {
-          res.json(savedHome);
+        user.save({ new: true }).then((saved) => {
+          res.json(home);
         })
         .catch(err => {
-          res.json({
-            message: 'Unable to save home.'
-          });
+          res.json({ err });
         });
+      }
+      else {
+        res.json({message: 'home not found'});
+      }
     })
     .catch(err => {
+      console.log(err);
       res.json({
-        mesage: 'Unable to find user'
+        mesage: 'Unable to find user ' + req.params.userId
       });
     });
 });
 
-router.delete('/:id', (req, res) => {
-        Home.findByIdAndRemove(req.params.id)
-        .then((home) => {
-            if (home) {
-                return res.json({
-                    message: 'home deleted'
-                });
-            }
-            else {
-                return res.json({
-                    message: 'home not found'
-                });
-            }
-        });
+router.delete('/:homeId', (req, res) => {
+  User.findOneAndUpdate({ 'homes._id': req.params.homeId },
+  { $pull: { homes: { _id: req.params.homeId }}}, { new: true })
+  .then((u) => {
+    res.json(u);
+  })
+  .catch((err) => {
+    res.json(err);
+  })
 });
 
 module.exports = router;

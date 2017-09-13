@@ -17,19 +17,7 @@ const Address = new Schema({
     longitude: 0
 });
 
-const User = new Schema({
-    email: String, 
-    password: String, 
-    username: String,
-    img: String,  
-    isOwner: {
-        type: Boolean, 
-        default: true
-    },
-});
-
 const Home = new Schema({
-    owner: User,
     img: String,
     description: String, 
     address: Address,
@@ -49,27 +37,39 @@ const Home = new Schema({
     }
 });
 
-const Availability = new Schema({
-    home: Home,
-    zipcode: String,
-    startDate: {
-        type: Date,
-        default: Date.now()
-    }, 
-    endDate: {
-        type: Date, 
-        default: Date.now()
-    }
+const User = new Schema({
+    email: String, 
+    password: String, 
+    username: String,
+    img: String,  
+    isOwner: {
+        type: Boolean, 
+        default: true
+    },
+    homes: [Home]
 });
 
-Availability.pre('save', function(next) {
-   if (this.startDate > this.endDate) {
-       return next(new Error('Start date is after end date!'));
-   }
-    next();
-});
+// const Availability = new Schema({
+//     home: Home,
+//     zipcode: String,
+//     startDate: {
+//         type: Date,
+//         default: Date.now()
+//     }, 
+//     endDate: {
+//         type: Date, 
+//         default: Date.now()
+//     }
+// });
 
-const AvailabilityModel = mongoose.model('Availability', Availability);
+// Availability.pre('save', function(next) {
+//    if (this.startDate > this.endDate) {
+//        return next(new Error('Start date is after end date!'));
+//    }
+//     next();
+// });
+
+// const AvailabilityModel = mongoose.model('Availability', Availability);
 const AddressModel = mongoose.model('Address', Address);
 const HomeModel = mongoose.model('Home', Home);
 const UserModel = mongoose.model('User', User);
@@ -77,6 +77,6 @@ const UserModel = mongoose.model('User', User);
 module.exports = {
     User: UserModel,
     Home: HomeModel,
-    Address: AddressModel,
-    Availability: AvailabilityModel
+    Address: AddressModel
+    // Availability: AvailabilityModel
 };

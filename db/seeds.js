@@ -8,14 +8,14 @@ mongoose.connect(process.env.MONGODB_URI, {
     useMongoClient: true
 });
 
-const Availability = require('../db/schema').Availability;
+//const Availability = require('../db/schema').Availability;
 const Home = require('../db/schema').Home;
 const User = require('../db/schema').User;
 const Address = require('../db/schema').Address;
 
-Availability.remove({}, (err) => {
-    if(err) console.log(err);
-});
+// Availability.remove({}, (err) => {
+//     if(err) console.log(err);
+// });
 Home.remove({}, (err) => {
     if(err) console.log(err);
 });
@@ -49,13 +49,40 @@ const address2 = new Address(
     }
 );
 
+const home1 = new Home(
+    {
+        img: 'https://i.imgur.com/ycdWdDXl.jpg',
+        description: 'Upscale home in Atlanta, close to many attractions.', 
+        address: address1,
+        rooms: 3, 
+        guests: 7, 
+        smoking: false,
+        kids: true,
+        pets: false
+    }
+);
+
+const home2 = new Home(
+    {
+        img: 'https://i.imgur.com/Wr37V2al.jpg',
+        description: 'Urban oasis in Historic Savannah.', 
+        address: address2,
+        rooms: 3, 
+        guests: 6, 
+        smoking: false,
+        kids: true,
+        pets: true
+    }
+);
+
 const user1 = new User(
     {
         email: 'kelly@email.com', 
         password: 'hotsundae', 
         username: 'kelly',
         img: 'https://i.imgur.com/qcbxgWvm.jpg',  
-        isOwner: true
+        isOwner: true,
+        homes:[home1, home2]
     }
 );
 
@@ -65,7 +92,8 @@ const user2 = new User(
         password: 'zackattack', 
         username: 'zack',
         img: 'https://i.imgur.com/NxJ2jsNm.jpg',  
-        isOwner: false
+        isOwner: false,
+        homes: []
     }
 );
 
@@ -81,63 +109,30 @@ user2.save().then(() => {
     console.log('error saving user', err);
 });
 
-const home1 = new Home(
-    {
-        owner: user1,
-        img: 'https://i.imgur.com/ycdWdDXl.jpg',
-        description: 'Upscale home in Atlanta, close to many attractions.', 
-        address: address1,
-        rooms: 3, 
-        guests: 7, 
-        smoking: false,
-        kids: true,
-        pets: false
-    }
-);
 
-const home2 = new Home(
-    {
-        owner: user1,
-        img: 'https://i.imgur.com/Wr37V2al.jpg',
-        description: 'Urban oasis in Historic Savannah.', 
-        address: address2,
-        rooms: 3, 
-        guests: 6, 
-        smoking: false,
-        kids: true,
-        pets: true
-    }
-);
+// const availability1 = new Availability(
+//     {
+//         home: home1,
+//         zipcode: '30324',
+//         startDate: Date.now(),
+//         endDate: Date.now() + 1000 * 60 * 60 * 24 * 5
+//     }
+// );
 
-[home1, home2].map((home) => {
-    home.save().then((h) => {
-        console.log(h.address.addressLine1 + ' saved.');
-    });
-});
+// const availability2 = new Availability(
+//     {
+//         home: home2,
+//         zipcode: '31401',
+//         startDate: Date.now(),
+//         endDate:  Date.now() + 1000 * 60 * 60 * 24 * 7
+//     }
+// );
 
-const availability1 = new Availability(
-    {
-        home: home1,
-        zipcode: '30324',
-        startDate: Date.now(),
-        endDate: Date.now() + 1000 * 60 * 60 * 24 * 5
-    }
-);
-
-const availability2 = new Availability(
-    {
-        home: home2,
-        zipcode: '31401',
-        startDate: Date.now(),
-        endDate:  Date.now() + 1000 * 60 * 60 * 24 * 7
-    }
-);
-
-[availability1,availability2].map((availability) => {
-    availability.save().then((a) => {
-        console.log('availability is saved!');
-    }).catch((err) => {
-        console.log('error saving availability', err);
-    });
-});
+// [availability1,availability2].map((availability) => {
+//     availability.save().then((a) => {
+//         console.log('availability is saved!');
+//     }).catch((err) => {
+//         console.log('error saving availability', err);
+//     });
+// });
 mongoose.connection.close();

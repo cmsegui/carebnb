@@ -7,6 +7,7 @@ mongoose.set('debug', true);
 
 const UserController = require('./controllers/user');
 const HomeController = require('./controllers/home');
+const SearchController = require('./controllers/search');
 //const AvailabilityController = require('./controllers/availability');
 const app = express();
 
@@ -30,12 +31,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/api/user', UserController);
 app.use('/api/user/:userId/home', HomeController);
+app.use('/api/search', SearchController);
 //app.use('/api/user/:userId/home/:homeId/availability', AvailabilityController);
 app.get("/", (req, res) => {
   res.send("Hello World!");
-});
-app.post('/test', (req, res) => {
-  res.json({derp: req.body.derp});
 });
 
 const PORT = process.env.PORT || 3001;

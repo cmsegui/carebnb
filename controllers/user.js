@@ -8,16 +8,16 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get("/", (req,res) => {
-    User.find().then((users) => {
+    User.find().select('_id email username img isOwner').then((users) => {
       res.json(users);
     }).catch((err) => {
-        res.json(err);
-    })
+        res.json({ message: 'unable to get users' });
+    });
   });
   
-router.get("/:email", (req,res) => {
-    User.findOne({email: req.params.email}).then((users) => {
-      res.json(users);
+router.get("/:id", (req,res) => {
+    User.findById(req.params.id).then((user) => {
+      res.json(user);
     });
   });
   
@@ -31,12 +31,11 @@ router.post('/', (req,res) => {
 
 router.put('/:id', (req, res) => {
 let id = req.params.id;
-User.findByIdAndUpdate(id, { $set: req.body }).then((user) => {
+User.findByIdAndUpdate(id, { $set: req.body }, { new: true })
+  .then((user) => {
     res.json(user);
   }).catch((err) => {
-    res.json({
-      message: 'Unable to save user.'
-    });
+    res.json({ message: 'Unable to save user.' });
   });
 });
 

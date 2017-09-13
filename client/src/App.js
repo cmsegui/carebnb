@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import User from './components/User';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 
 class App extends Component {
   render() {
+
+
+
+
     return (
-      <div>HOMELESS? I GOTCHU!</div>
-      
+
+      <h1>HOMELESS?  I GOTCHU!</h1>
+
     );
-  }
-}
+  };
+};
 
 export default App;
