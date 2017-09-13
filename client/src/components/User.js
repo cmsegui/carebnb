@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-class Users extends Component {
+
+class User extends Component {
   constructor() {
     super();
     this.state = {
-      user: []
+      users: []
     }
   }
   componentWillMount() {
     this._getUserData();
   }
   _getUserData = () => {
-    const id = this.props.match.params.id;
-    axios.get(`/api/user/${id}`)
+    //const id = this.props.match.params.id;
+    axios.get('/api/user/')
       .then((res) => {
         this.setState({ users: res.data })
       }) 
@@ -27,9 +27,9 @@ class Users extends Component {
   render() {
     return (
       <div>
-        {this.state.user.map((user) => {
+        {this.state.users.map((user) => {
           return (<div key={user.id}>
-            <h1>{user.username}'s Profile</h1>
+            <h1>{user.username}</h1>
             <img src={user.img} alt='userpic' />
             </div>)
         })}
@@ -38,4 +38,4 @@ class Users extends Component {
   }
 }
   
-export default Users;
+export default User;
