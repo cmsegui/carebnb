@@ -25,4 +25,24 @@ router.get('/', (req, res) => {
     });
 });
 
+
+router.get('/:homeId', (req, res) => {
+    let allHomes = [];
+    User.find({ isOwner: true })
+      .then((owners) => {
+          owners.map((owner) => {
+              owner.homes.map((home) => {
+                  allHomes.push(home);
+              });
+          });
+      let foundHome = allHomes.filter((home) => {
+          return home._id + '' === req.params.homeId;
+      })[0];
+      res.json(foundHome);
+      })
+      .catch(err => {
+        res.json(err);
+      });
+});
+
 module.exports = router;

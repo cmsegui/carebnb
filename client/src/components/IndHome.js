@@ -1,42 +1,107 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-
-
-class HomeList extends Component {
+ 
+ 
+class IndHome extends Component {
   constructor() {
     super();
     this.state = {
-      homes: []
+      home: {}
     }
   }
   componentWillMount() {
-    this._getHomeData();
+    this._getOneHomeData();
   }
-  _getHomeData = () => {
-    axios.get('/api/search/:id')
+  _getOneHomeData = () => {
+    const id = this.props.match.params.id;
+    console.log(id);
+    axios.get(`/api/search/${id}`)
       .then((res) => {
         console.log(res.data)
-        this.setState({ homes: res.data })
-      }) 
+        this.setState({ home: res.data })
+      })
       .catch((err) => {
         console.log(err);
       });
-  } 
-
+  }
+ 
   render() {
-      const id = this.props.match.params.id;
+      const home = this.state.home;
     return (
-      <div>
-        {this.state.homes.map((home) => {
-          return (<div key={home._id}>
-            <img src={home.img} alt='homepic' />
-            <div>{home.description}</div>
-            </div>)
-        })}
+          <div className="container">
+          <div className="row">
+              <div className="col-2">
+              </div>
+              <div className="col-8">
+              <img src={home.img} alt='homepic' />
+              </div>
+              <div className="col-2">
+              </div>
+          </div>
+  
+          <div className="row">
+              <div className="col-10">
+              <div>{home.description}</div>
+              </div>
+          </div>
+  
+          <a href="email:kelly@email.com">Click Here to Email</a>
+  
+          <div className="container">
+              <div className="bottom-bordered">
+                  <div className="row">
+                      <div className="col">
+                      <div>Kid-Friendly: {home.kids}</div>
+                      </div>
+                      <div className="col">
+                          YES
+                      </div>
+                  </div>
+              </div>
+              <div className="bottom-bordered">
+                  <div className="row">
+                      <div className="col">
+                      <div>Pet-Friendly: {home.pets}</div>
+                      </div>
+                      <div className="col">
+                          YES
+                      </div>
+                  </div>
+              </div>
+              <div className="bottom-bordered">
+                  <div className="row">
+                      <div className="col">
+                      <div>Rooms: {home.rooms}</div>
+                      </div>
+                      <div className="col">
+                          3
+                      </div>
+                  </div>
+              </div>
+              <div className="bottom-bordered">
+                  <div className="row">
+                      <div className="col">
+                      <div>Guests: {home.guests}</div>
+                      </div>
+                      <div className="col">
+                          7
+                      </div>
+                  </div>
+              </div>
+              <div className="bottom-bordered">
+                  <div className="row">
+                      <div className="col">
+                      <div>Smoking: {home.smoking}</div>
+                      </div>
+                      <div className="col">
+                          NO
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
     )
   }
 }
-  
-export default HomeList;
+ 
+export default IndHome;
