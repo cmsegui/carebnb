@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 class HomeList extends Component {
@@ -25,7 +25,6 @@ class HomeList extends Component {
   } 
 
   render() {
-      const id = this.props.match.params.id;
     return (
       <div>
           <h1>HOMES</h1>

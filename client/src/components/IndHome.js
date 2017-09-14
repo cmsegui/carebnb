@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
  
- 
 class IndHome extends Component {
   constructor() {
     super();
@@ -73,18 +72,12 @@ class IndHome extends Component {
                       <div className="col">
                       <div>Rooms: {home.rooms}</div>
                       </div>
-                      <div className="col">
-                          3
-                      </div>
                   </div>
               </div>
               <div className="bottom-bordered">
                   <div className="row">
                       <div className="col">
                       <div>Guests: {home.guests}</div>
-                      </div>
-                      <div className="col">
-                          7
                       </div>
                   </div>
               </div>

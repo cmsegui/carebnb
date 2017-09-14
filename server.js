@@ -27,12 +27,17 @@ connection.on('error', (err) => {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(__dirname + '/client/build/'));
+
 
 
 app.use('/api/user', UserController);
 app.use('/api/user/:userId/home', HomeController);
 app.use('/api/search', SearchController);
-//app.use('/api/user/:userId/home/:homeId/availability', AvailabilityController);
+
+app.get('/', (req,res) => {
+  res.sendFile(__dirname + '/client/build/index.html')
+})
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });

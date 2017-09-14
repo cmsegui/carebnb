@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-
 class User extends Component {
   constructor() {
     super();
@@ -13,7 +12,6 @@ class User extends Component {
     this._getUserData();
   }
   _getUserData = () => {
-    //const id = this.props.match.params.id;
     axios.get('/api/user/')
       .then((res) => {
         this.setState({ users: res.data })
@@ -31,6 +29,7 @@ class User extends Component {
           return (<div key={user.id}>
             <h1>{user.username}</h1>
             <img src={user.img} alt='userpic' />
+            
             </div>)
         })}
       </div>
