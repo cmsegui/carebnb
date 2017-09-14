@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class AddHome extends Component {
+class EditHome extends Component {
     constructor() {
      super();
      this.state = {
@@ -18,32 +18,24 @@ class AddHome extends Component {
             smoking: false,
             kids: true,
             pets: true
-        },
-        user: {}
+        }
        }
     }
-_addNewHome = e => {
-    
+_editHome = e => {
     console.log('data saved');
     e.preventDefault();
-    // axios.post(`/api/user/${id}/home/`, this.state).then(res => {
-    // })
-    // .catch((err) => {
-    //     console.log(err);
-    //   });
+    axios.put('/:homeId', this.state).then(res => {
+    }).catch((err) => {
+        console.log(err);
+      });
 };
 
-_handleChange = (e) => {
-    const newState = {...this.state.home}
-    newState[e.target.name] = e.target.value
-    this.setState({home: newState})
-}
+
 
 render() {
-    console.log(this.props.match.params.id)
      return(
          <div>
-             <h1>Add A New Home</h1>
+             <h1>Edit Your Home</h1>
              <form onSubmit={this._addNewHome}>
                  <h4>Home Image:
                  <input onChange={this._handleChange} type="text" name="img" value={this.state.home.img} />
@@ -88,4 +80,4 @@ render() {
     }
    }
 
-export default AddHome;
+export default EditHome;
