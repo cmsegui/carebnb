@@ -12,6 +12,7 @@ class App extends Component {
     return (
       <Router>
         <div>
+          
           <Route exact path="/user" component={User} />
           <Route exact path="/user/:id" component={UserProfile} />
           <Route exact path="/search" component={HomeList} />
