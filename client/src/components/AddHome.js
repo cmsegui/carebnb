@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Redirect }  from 'react-router-dom';
 
 class AddHome extends Component {
     constructor() {
@@ -16,21 +17,26 @@ class AddHome extends Component {
             rooms: 0,
             guests: 0,
             smoking: false,
-            kids: true,
-            pets: true
+            kids: false,
+            pets: false
         },
-        user: {}
+        redirect: false
        }
     }
 _addNewHome = e => {
-    
     console.log('data saved');
     e.preventDefault();
-    // axios.post(`/api/user/${id}/home/`, this.state).then(res => {
-    // })
-    // .catch((err) => {
-    //     console.log(err);
-    //   });
+    axios.post(`/api/user/${this.props.match.params.id}/home`, this.state.home)
+    .then((res) => {
+        console.log('hit the then part')
+        const newState  = {...this.state}
+        newState.redirect = true
+        this.setState(newState)
+    })
+    .catch((err) => {
+        console.log(err);
+      });
+      
 };
 
 _handleChange = (e) => {
@@ -40,7 +46,11 @@ _handleChange = (e) => {
 }
 
 render() {
-    console.log(this.props.match.params.id)
+    if (this.state.redirect) {
+        return (
+            <Redirect to={`/user/${this.props.match.params.id}`} />
+        )
+    } else {
      return(
          <div>
              <h1>Add A New Home</h1>
@@ -85,6 +95,7 @@ render() {
              </form>
          </div>
      )
+    }
     }
    }
 

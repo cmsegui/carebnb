@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class EditHome extends Component {
+    userId = '';
+    id = '';
+
     constructor() {
      super();
      this.state = {
@@ -21,15 +24,35 @@ class EditHome extends Component {
         }
        }
     }
-_editHome = e => {
+_editHome= e => {
     console.log('data saved');
     e.preventDefault();
-    axios.put('/:homeId', this.state).then(res => {
+    axios.put(`/user/${this.userId}/home/${this.id}`, this.state).then(res => {
     }).catch((err) => {
         console.log(err);
       });
 };
 
+_getHome= () => {
+    axios.get(`/user/${this.userId}/home/${this.id}`, this.state).then(home => {
+        this.setState({home: home});
+        console.log(home);
+    }).catch((err) => {
+        console.log(err);
+      });
+};
+
+componentWillMount() {
+    this.id = this.props.match.params.id;
+    this.userId = this.props.match.params.userId;
+    this._getHome();
+}
+
+_handleChange = (e) => {
+    const newState = {...this.state.home}
+    newState[e.target.name] = e.target.value
+    this.setState({home: newState})
+}
 
 
 render() {

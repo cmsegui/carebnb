@@ -8,7 +8,23 @@ const router = express.Router({ mergeParams: true});
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
+// router.get('/:id', (req, res) => {
+//   User.findById(req.params.userId)
+//     .then((user) => {
+//       let foundHome;
+//       user.homes.map((home) => {
+//        if (home._id + '' === req.params.id) {
+//         foundHome = home;
+//        }
+//       res.json(foundHome);
+//    })
+//     .catch(err => {
+//       res.json(err);
+//     });
+// });
+
 router.post('/', (req, res) => {
+  console.log(req.params.userId);
   User.findById(req.params.userId)
     .then((user) => {
       let addr = new Address({

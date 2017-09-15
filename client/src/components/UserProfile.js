@@ -46,13 +46,13 @@ class UserProfile extends Component {
           {this.state.user.homes.map(home => {
             return (
               <div>
-              <Link to={`/search/${home._id}`}><img src={home.img} alt='homepic' /></Link>
+              <Link to={`/user/${this.state.user._id}/editHome/${home._id}`}><img src={home.img} alt='homepic' /></Link>
                 <div>Address of Home Goes Here</div>
               </div>
             );
           })}
         </div>
-        <Link to={'/addHome'}>ADD HOME</Link>
+        <Link to={`/user/${this.props.match.params.id}/addHome`}>ADD HOME</Link>
 
       </div>
     );
