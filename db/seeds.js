@@ -80,7 +80,7 @@ const user1 = new User(
         email: 'kelly@email.com', 
         password: 'hotsundae', 
         username: 'kelly',
-        img: 'https://i.imgur.com/qcbxgWvm.jpg',  
+        img: 'https://i.imgur.com/mbXJel2t.jpg',  
         isOwner: true,
         homes:[home1, home2]
     }

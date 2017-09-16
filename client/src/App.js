@@ -4,6 +4,7 @@ import HomeList from './components/HomeList';
 import IndHome from './components/IndHome';
 import EditHome from './components/EditHome';
 import UserProfile from './components/UserProfile';
+import SplashPage from './components/SplashPage';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AddHome from './components/AddHome';
 
@@ -12,7 +13,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          
+          <Route exact path="/" component={SplashPage} />
           <Route exact path="/user" component={User} />
           <Route exact path="/user/:id" component={UserProfile} />
           <Route exact path="/search" component={HomeList} />

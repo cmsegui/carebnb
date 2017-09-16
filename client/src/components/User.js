@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class User extends Component {
   constructor() {
     super();
     this.state = {
-      users: []
+      user: []
     }
   }
   componentWillMount() {
     this._getUserData();
   }
   _getUserData = () => {
-    axios.get('/api/user/')
+    const id = this.props.match.params.id;
+    axios.get(`/api/user/${id}`)
       .then((res) => {
         this.setState({ users: res.data })
       }) 
@@ -25,13 +27,10 @@ class User extends Component {
   render() {
     return (
       <div>
-        {this.state.users.map((user) => {
-          return (<div key={user.id}>
-            <h1>{user.username}</h1>
-            <img src={user.img} alt='userpic' />
-            
-            </div>)
-        })}
+        <h2><Link to='/search'>ARE YOU SEARCHING FOR A HOME?</Link></h2>
+          OR 
+          
+          <h2><Link to={`/user/${this.state.user._id}`}>DO YOU OWN A HOME?</Link></h2>   
       </div>
     )
   }

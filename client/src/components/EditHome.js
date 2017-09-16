@@ -97,7 +97,7 @@ render() {
                  <h4>Pet-Friendly:
                  <input onChange={this._handleChange} type="checkbox" name="pets" value={this.state.home.pets} />
                  </h4>
-                <input type="submit" value="Submit" />
+                <input className="btn btn-primary" type="submit" value="Submit" />
              </form>
          </div>
      )
