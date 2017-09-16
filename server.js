@@ -38,9 +38,6 @@ app.use('/api/search', SearchController);
 app.get('/', (req,res) => {
   res.sendFile(__dirname + '/client/build/index.html')
 })
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

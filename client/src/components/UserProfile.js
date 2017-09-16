@@ -55,9 +55,9 @@ class UserProfile extends Component {
     return (
       <div>
         <div>
+          <h3>Hi, {this.state.user.username}!</h3>
           <img src={this.state.user.img} alt="userpic" />
         </div>
-        <div>{this.state.user.username}</div>
         <div>{this.state.user.email}</div>
         <div>
           <h5>Your Homes: </h5>
