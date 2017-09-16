@@ -34,7 +34,8 @@ _editHome= e => {
 };
 
 _getHome= () => {
-    axios.get(`/user/${this.userId}/home/${this.id}`, this.state).then(home => {
+    console.log(`/user/${this.userId}/home/${this.id}`);
+    axios.get(`/user/${this.userId}/home/${this.id}`).then(home => {
         this.setState({home: home});
         console.log(home);
     }).catch((err) => {

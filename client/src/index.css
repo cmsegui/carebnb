@@ -6,3 +6,6 @@ body {
 .bottom-bordered {
   border-bottom: 1px dotted grey;
 }
+.btntxtclr {
+  color: white;
+}
