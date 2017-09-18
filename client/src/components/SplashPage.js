@@ -7,7 +7,7 @@ class SplashPage extends Component {
             <div>
                 <div>
                 <h1 className="">Community BnB</h1>
-            <img src="https://i.imgur.com/JOvnDePh.jpg"/>
+            <img src="https://i.imgur.com/JOvnDePh.jpg" alt="community pic"/>
             </div>
             <div>
                 <Link to='/user'>WELCOME</Link>

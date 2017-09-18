@@ -6,22 +6,23 @@ class User extends Component {
   constructor() {
     super();
     this.state = {
-      user: []
+      users: [],
+      kelly: {}
     }
   }
   componentWillMount() {
     this._getUserData();
   }
   _getUserData = () => {
-    const id = this.props.match.params.id;
-    axios.get(`/api/user/${id}`)
+    axios.get(`/api/user`)
       .then((res) => {
-        this.setState({ users: res.data })
+        let kelly = res.data[1];
+        this.setState({ users: res.data, kelly: kelly });
+
       }) 
       .catch((err) => {
         console.log(err);
       });
-      console.log(this.state.user)
   } 
 
   render() {
@@ -30,7 +31,7 @@ class User extends Component {
         <h2><Link to='/search'>ARE YOU SEARCHING FOR A HOME?</Link></h2>
           OR 
           
-          <h2><Link to={`/user/${this.state.user._id}`}>DO YOU OWN A HOME?</Link></h2>   
+          <h2><Link to={`/user/${this.state.kelly._id}`}>DO YOU OWN A HOME?</Link></h2>   
       </div>
     )
   }

@@ -11,7 +11,11 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.get('/:id', (req, res) => {
   User.findById(req.params.userId)
     .then((user) => {
-      res.json(user);
+      //res.json(user.homes);
+      user.homes.findById(req.params.id)
+      .then((home) => {
+        res.json(home);
+      })
       // let foundHome;
       // user.homes.map((home) => {
       //  if (home._id + '' === req.params.id) {
