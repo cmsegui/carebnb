@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import User from './components/User';
 import HomeList from './components/HomeList';
 import IndHome from './components/IndHome';
 import EditHome from './components/EditHome';
@@ -14,7 +13,6 @@ class App extends Component {
       <Router>
         <div>
           <Route exact path="/" component={SplashPage} />
-          <Route exact path="/user" component={User} />
           <Route exact path="/user/:id" component={UserProfile} />
           <Route exact path="/search" component={HomeList} />
           <Route exact path="/search/:id" component={IndHome} />

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+
 
 class UserProfile extends Component {
   constructor() {
@@ -13,7 +14,8 @@ class UserProfile extends Component {
         img: '',
         isOwner: true,
         homes: []
-      }
+      },
+      redirect: false
     };
   }
   componentWillMount() {
@@ -38,13 +40,14 @@ class UserProfile extends Component {
     axios
       .delete(`/api/user/${id}/home/${homeId}`)
       .then(res => {
-        let homes = this.state.user.homes.filter(home => {
-          return home._id + '' === homeId;
-        });
-        let user = Object.assign({}, this.state.user, { homes: homes });
-        this.setState({
-          user: user
-        });
+        this._getUserProfileData()
+        // let homes = this.state.user.homes.filter(home => {
+        //   return home._id + '' === homeId;
+        // });
+        // let user = Object.assign({}, this.state.user, { homes: homes });
+        // this.setState({
+        //   user: user
+        // });
 
         alert('Home Deleted');
       })
@@ -54,6 +57,9 @@ class UserProfile extends Component {
   };
 
   render() {
+    if (this.state.redirect) {
+      <Redirect to={`/user/${this.props.match.params.id}`} />
+    } else {
     return (
       <div>
         <div>
@@ -114,6 +120,7 @@ class UserProfile extends Component {
         </button>
       </div>
     );
+  }
   }
 }
 

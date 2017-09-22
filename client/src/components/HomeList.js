@@ -27,7 +27,7 @@ class HomeList extends Component {
   render() {
     return (
       <div>
-          <h1>HOMES</h1>
+          <h3 className="header">Available Homes</h3>
         {this.state.homes.map((home) => {
           return (<div key={home._id}>
             <Link to={`/search/${home._id}`}><img src={home.img} alt='homepic' /></Link>
