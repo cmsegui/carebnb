@@ -70,7 +70,7 @@ router.put('/:homeId', (req, res) => {
   User.findById(req.params.userId)
     .then((user) => {
       let home = user.homes.filter((home) => {
-        // adding an emoty string here to convert home._id to string
+        // adding an empty string here to convert home._id to string
         return (home._id + '' === req.params.homeId);
       })[0];
       if(home) {

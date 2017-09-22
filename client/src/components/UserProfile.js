@@ -35,7 +35,8 @@ class UserProfile extends Component {
       });
   };
 
-  _deleteHome = homeId => {
+  _deleteHome = (homeId, e) => {
+    e.preventDefault();
     const id = this.props.match.params.id;
     axios
       .delete(`/api/user/${id}/home/${homeId}`)
