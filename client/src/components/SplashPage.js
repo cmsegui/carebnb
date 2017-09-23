@@ -28,17 +28,18 @@ class SplashPage extends Component {
     return (
       <div className="splash">
         <h1 className="header-giant">Community BnB</h1>
-        <img src="http://fairmountinc.com/wp-content/uploads/2015/07/community-2.jpg" id="hand-img"/>
-        <div className="button-bar">
-          <Link to="/search">
-            <a className="btn btn-success btn-lg" role="button">
-              I am seeking housing
-            </a>
-          </Link>
-          <br/>
+        <img src="https://i.imgur.com/CEDq1iz.png" id="hand-img"/>
+        <div className="button-bar1">
           <Link to={`/user/${this.state.kelly._id}`}>
             <a className="btn btn-success btn-lg" role="button">
               I share my home
+            </a>
+          </Link>
+        </div>
+        <div className="button-bar2">
+          <Link to="/search">
+            <a className="btn btn-success btn-lg" role="button">
+              I am seeking housing
             </a>
           </Link>
         </div>

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link, Redirect } from 'react-router-dom';
 
-
 class UserProfile extends Component {
   constructor() {
     super();
@@ -18,16 +17,14 @@ class UserProfile extends Component {
       redirect: false
     };
   }
+
   componentWillMount() {
     this._getUserProfileData();
   }
   _getUserProfileData = () => {
     const id = this.props.match.params.id;
-    // console.log(id);
-    axios
-      .get(`/api/user/${id}`)
+    axios.get(`/api/user/${id}`)
       .then(res => {
-        // console.log(res.data.homes);
         this.setState({ user: res.data });
       })
       .catch(err => {
@@ -38,19 +35,10 @@ class UserProfile extends Component {
   _deleteHome = (homeId, e) => {
     e.preventDefault();
     const id = this.props.match.params.id;
-    axios
-      .delete(`/api/user/${id}/home/${homeId}`)
+    axios.delete(`/api/user/${id}/home/${homeId}`)
       .then(res => {
         this._getUserProfileData()
-        // let homes = this.state.user.homes.filter(home => {
-        //   return home._id + '' === homeId;
-        // });
-        // let user = Object.assign({}, this.state.user, { homes: homes });
-        // this.setState({
-        //   user: user
-        // });
-
-        alert('Home Deleted');
+          alert('Home Deleted');
       })
       .catch(err => {
         console.log(err);
@@ -60,8 +48,9 @@ class UserProfile extends Component {
   render() {
     if (this.state.redirect) {
       <Redirect to={`/user/${this.props.match.params.id}`} />
-    } else {
-    return (
+    } 
+    else {
+      return (
       <div>
         <div>
           <h3>Hi, {this.state.user.username}!</h3>
@@ -70,16 +59,12 @@ class UserProfile extends Component {
           <h4>These are your homes: </h4>
           {this.state.user.homes.map(home => {
             return (
-              <div className="container">
-                <div className="row">
-                  <div className="col-6">
+              <div>
+                <div>
+                  <div>
                     <div key={home._id}>
                       <Link to={`/search/${home._id}`}>
-                        <img
-                          src={home.img}
-                          alt="homepic"
-                          className="imgformat"
-                        />
+                        <img src={home.img} alt="homepic" className="imgformat"/>
                       </Link>
                     </div>
                   </div>
