@@ -27,11 +27,11 @@ class HomeList extends Component {
   render() {
     return (
       <div>
-          <h3 className="header">Available Homes</h3>
+          <h1>Available Homes</h1>
         {this.state.homes.map((home) => {
           return (<div key={home._id}>
-            <Link to={`/search/${home._id}`}><img src={home.img} alt='homepic' /></Link>
-            <div>{home.description}</div>
+            <Link to={`/search/${home._id}`}><img src={home.img} alt='homepic'className="homelistimg" /></Link>
+            <div className="homelistdes">{home.description}</div>
             </div>)
         })}
       </div>

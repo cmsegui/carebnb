@@ -27,7 +27,7 @@ class IndHome extends Component {
   render() {
       const home = this.state.home;
     return (
-          <div className="container">
+          <div className="container homelistdes">
           <div className="row">
               <div className="col-2">
               </div>

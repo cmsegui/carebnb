@@ -52,7 +52,7 @@ render() {
      return(
          <div className="form-holder">
              <h1>Edit Your Home</h1>
-             <form onSubmit={this._addNewHome}>
+             <form onSubmit={this._editHome}>
                  <div className="form-group row">
 						<label className="col-sm-4 col-form-label" for="">Home Image:</label>
 				<div className="col-sm-8">

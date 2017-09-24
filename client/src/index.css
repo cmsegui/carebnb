@@ -23,7 +23,7 @@ body {
   float: left;
 
 }
-#hand-img {
+#splash-img {
 width: 100%;
 }
 .header-giant {
@@ -92,4 +92,17 @@ width: 100%;
 
 .form-control {
   font-size: 24px;
+}
+.homelistimg {
+  border: 3px solid #ddd;
+  border-radius: 4px;
+  margin: 0 1em;
+  width: 400px;
+  height: 250px;
+
+}
+
+.homelistdes {
+  font-size: 24px;
+  margin-bottom: 2em;
 }
