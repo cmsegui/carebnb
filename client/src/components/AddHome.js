@@ -55,7 +55,8 @@ render() {
          <div>
              <h1>Add A New Home</h1>
              <form onSubmit={this._addNewHome}>
-                 <h4>Home Image:
+                <div className="form-group">
+                <h4>Home Image:
                  <input onChange={this._handleChange} type="text" name="img" value={this.state.home.img} />
                  </h4>
                  <h4>Description:
@@ -91,6 +92,7 @@ render() {
                  <h4>Pet-Friendly:
                  <input onChange={this._handleChange} type="checkbox" name="pets" value={this.state.home.pets} />
                  </h4>
+                 </div>
                 <input type="submit" value="Submit" />
              </form>
          </div>

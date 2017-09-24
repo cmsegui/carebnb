@@ -53,57 +53,49 @@ class UserProfile extends Component {
       return (
       <div>
         <div>
-          <h3>Hi, {this.state.user.username}!</h3>
+          <h1>Hi, {this.state.user.username}!</h1>
         </div>
         <div>
-          <h4>These are your homes: </h4>
+          <h3 className="inline-header">These are your homes: </h3>
+          <button type="button" className="btn btn-outline-primary add-button">
+          <Link
+            to={`/user/${this.props.match.params.id}/addHome`}
+            className="btntxtclr">
+            ADD HOME
+          </Link>
+        </button>
           {this.state.user.homes.map(home => {
             return (
-              <div>
-                <div>
-                  <div>
-                    <div key={home._id}>
+              <div key={home._id} className="clearfix">
+                  <div className="home">
                       <Link to={`/search/${home._id}`}>
                         <img src={home.img} alt="homepic" className="imgformat"/>
                       </Link>
-                    </div>
-                  </div>
-                  <div class="col-6">
+                  <div className="addy">
                     <div>{home.address.addressLine1}</div>
                     <div>{home.address.addressLine2}</div>
                     <div>{home.address.city}</div>
                     <div>{home.address.state}</div>
                     <div>{home.address.zipcode}</div>
                   </div>
+                  <div className="button-bar">
+                  <button type="button" className="btn btn-outline-warning">
+                    <Link
+                      to={`/user/${this.state.user._id}/editHome/${home._id}`}
+                      className="btntxtclr">
+                      EDIT
+                    </Link>
+                  </button>
+                  <button type="button" className="btn btn-outline-danger"
+                    onClick={this._deleteHome.bind(this, home._id)}>
+                    DELETE
+                  </button>
+                  </div>
                 </div>
-                <button type="button" className="btn btn-warning">
-                  <Link
-                    to={`/user/${this.state.user._id}/editHome/${home._id}`}
-                    className="btntxtclr"
-                  >
-                    EDIT
-                  </Link>
-                </button>
-
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  onClick={this._deleteHome.bind(this, home._id)}
-                >
-                  DELETE
-                </button>
               </div>
-            );
+            )
           })}
         </div>
-        <button type="button" className="btn btn-primary">
-          <Link
-            to={`/user/${this.props.match.params.id}/addHome`}
-            className="btntxtclr"
-          >
-            ADD HOME
-          </Link>
-        </button>
       </div>
     );
   }

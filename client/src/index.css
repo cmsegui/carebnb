@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Rock+Salt');
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
 
 body {
-  background-color: #DFE3EE;
+  background-color: lightgrey;
   color: rgba(39, 26, 26, 0.75);
-
+  font-family: 'Amatic SC', cursive;
+  
 }
 .bottom-bordered {
   border-bottom: 1px dotted grey;
@@ -15,8 +17,10 @@ body {
 .imgformat {
   border: 1px solid #ddd;
   border-radius: 4px;
-  padding: 5px;
-  width: 350px;
+  margin: 0 1em;
+  width: 300px;
+  float: left;
+
 }
 #hand-img {
 width: 100%;
@@ -30,14 +34,12 @@ width: 100%;
   top: 250px;
   left: 210px;
 }
-.header {
-  font-family: 'Rock Salt', cursive;
-}
 
 .splash {
   margin-top: auto;
 
 }
+
 .button-bar1 {
   position: absolute;
   top: 420px;
@@ -45,10 +47,44 @@ width: 100%;
   width: 450px;
   margin: auto;
 }
+
 .button-bar2 {
   position: absolute;
   top: 420px;
   left: 700px;
   width: 450px;
   margin: auto;
+}
+
+.addy {
+  padding-top: 0.5em;
+  font-size: 24px;
+}
+
+.clearfix {
+  overflow: auto;
+  margin-bottom: 1em;
+}
+
+.home {
+  margin-bottom: 5em;
+  margin-right: 2em;
+}
+
+.inline-header {
+  display: inline-block;
+  margin-right: 1em;
+}
+
+.add-button {
+  margin-bottom: 0.5em;
+  background-color: pink;
+}
+
+.form-holder {
+  width: 80%;
+}
+
+.col-form-label {
+  font-size: 1.5em;
 }

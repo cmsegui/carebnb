@@ -8,14 +8,10 @@ mongoose.connect(process.env.MONGODB_URI, {
     useMongoClient: true
 });
 
-//const Availability = require('../db/schema').Availability;
 const Home = require('../db/schema').Home;
 const User = require('../db/schema').User;
 const Address = require('../db/schema').Address;
 
-// Availability.remove({}, (err) => {
-//     if(err) console.log(err);
-// });
 Home.remove({}, (err) => {
     if(err) console.log(err);
 });
@@ -79,7 +75,7 @@ const user1 = new User(
     {
         email: 'kelly@email.com', 
         password: 'hotsundae', 
-        username: 'kelly',
+        username: 'Kelly',
         img: 'https://i.imgur.com/mbXJel2t.jpg',  
         isOwner: true,
         homes:[home1, home2]
@@ -109,30 +105,4 @@ user2.save().then(() => {
     console.log('error saving user', err);
 });
 
-
-// const availability1 = new Availability(
-//     {
-//         home: home1,
-//         zipcode: '30324',
-//         startDate: Date.now(),
-//         endDate: Date.now() + 1000 * 60 * 60 * 24 * 5
-//     }
-// );
-
-// const availability2 = new Availability(
-//     {
-//         home: home2,
-//         zipcode: '31401',
-//         startDate: Date.now(),
-//         endDate:  Date.now() + 1000 * 60 * 60 * 24 * 7
-//     }
-// );
-
-// [availability1,availability2].map((availability) => {
-//     availability.save().then((a) => {
-//         console.log('availability is saved!');
-//     }).catch((err) => {
-//         console.log('error saving availability', err);
-//     });
-// });
 mongoose.connection.close();
