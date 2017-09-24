@@ -9,24 +9,11 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get('/:id', (req, res) => {
-  // User.findById(req.params.userId)
-  //   .then((user) => {
-  //     //res.json(user.homes);
-  //     user.homes.findById(req.params.id)
-  //     .then((home) => {
-  //       res.json(home);
-  //     })
-  //     // let foundHome;
-  //     // user.homes.map((home) => {
-  //     //  if (home._id + '' === req.params.id) {
-  //     //   foundHome = home;
-  //     //  }
-  //     // res.json(foundHome);
-  //  })
-  User.findOne({
-    'homes._id': req.params.id
-  }).then((user) => {
-    res.json(user.homes);
+  User.findOne(
+    {'homes._id': req.params.id},
+    //projection operator it only gives the first match
+    {'homes.$': 1}).then((user) => {
+      res.json(user);
   })
     .catch(err => {
       res.json(err);
