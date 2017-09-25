@@ -4,6 +4,10 @@ const Home = require('../models/home');
 const User = require('../models/user');
 const Address = require('../models/address');
 const router = express.Router({ mergeParams: true});
+const axios = require('axios');
+
+const apikey = 'AIzaSyBECvuRIJfrefAJWwXwdEZ13l00aqsruag';
+const BASE_MAPS_URL = `https://maps.googleapis.com/maps/api/geocode/json?key=${apikey}&address=`;
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -21,9 +25,10 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  console.log(req.params.userId);
   User.findById(req.params.userId)
     .then((user) => {
+      console.log(req.body)
+      // create address
       let addr = new Address({
         addressLine1: req.body.addressLine1,
         addressLine2: req.body.addressLine2,
@@ -33,6 +38,8 @@ router.post('/', (req, res) => {
         latitude: 0,
         longitude: 0
       });
+ 
+      // create home
       let home = new Home({
         img: req.body.img,
         description: req.body.description,
@@ -43,20 +50,52 @@ router.post('/', (req, res) => {
         kids: req.body.kids,
         pets: req.body.pets
       });
-      // add home to user's home list
-      user.homes.push(home);
-      // save the user
-      user.save().then((u) => {
-          res.json(home);
+      // build address string for maps API.
+      // for an address 123 Main Street, it wants:  123+Main+Street
+      // so replace all spaces with + chars:
+      let addrQuery = `${ req.body.addressLine1 },${ req.body.zipcode}`.replace(/\s+/g, '+');
+      // send req to maps api via axios to geocode
+      // the full URL is the BASE plus the query:
+      console.log('addrquery', addrQuery);
+      axios.get(`${ BASE_MAPS_URL }${ addrQuery }`)
+      .then((geoResults) => {
+        // console.log('georesults', geoResults);
+        // sometimes it returns an array of results(?) so check if it does and grab just the first one
+        let geo = Array.isArray(geoResults.data.results) ? geoResults.data.results[0] : geoResults.data.results;
+        // console.log('is this working?',geo);
+        // if we got the geometry result, update the home's coords.
+        if(geo.geometry) {
+          home.address.latitude = geo.geometry.location.lat;
+          home.address.longitude = geo.geometry.location.lng;
+        }
+ 
+        // add home to user's home list
+        user.homes.push(home);
+        // save the user
+        user.save().then((u) => {
+            res.json(home);
+        })
+        .catch(err => {
+          res.json({message: 'unable to save home'});
+        });
       })
-      .catch(err => {
-        res.json({message: 'unable to save home'});
+      .catch((err) => {
+        // console.log('no geocode', err);
+        // unable to geocode, but still need to save home to user
+        user.homes.push(home);
+        user.save().then((u) => {
+            res.json(home);
+        })
+        .catch(err => {
+          res.json({message: 'unable to save home'});
+        });
       });
     })
     .catch((err) => {
       res.json({ message: 'unable to find user'});
     });
 });
+
 
 router.put('/:homeId', (req, res) => {
   User.findById(req.params.userId)

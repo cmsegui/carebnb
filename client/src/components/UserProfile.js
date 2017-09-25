@@ -26,6 +26,7 @@ class UserProfile extends Component {
     axios.get(`/api/user/${id}`)
       .then(res => {
         this.setState({ user: res.data });
+        console.log(res.data);
       })
       .catch(err => {
         console.log(err);
@@ -65,6 +66,7 @@ class UserProfile extends Component {
           </Link>
         </button>
           {this.state.user.homes.map(home => {
+            let mapslink = `http://www.google.com/maps/place/${home.address.latitude},${home.address.longitude}`;
             return (
               <div key={home._id} className="clearfix">
                   <div className="home">
@@ -77,6 +79,7 @@ class UserProfile extends Component {
                     <div>{home.address.city}</div>
                     <div>{home.address.state}</div>
                     <div>{home.address.zipcode}</div>
+                    <a href={mapslink} target="_maps">View on the Googles</a>
                   </div>
                   <div className="button-bar">
                   <button type="button" className="btn btn-outline-warning">
