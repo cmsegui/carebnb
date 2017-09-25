@@ -29,9 +29,12 @@ class HomeList extends Component {
       <div>
           <h1>Available Homes</h1>
         {this.state.homes.map((home) => {
+          let mapslink = `http://www.google.com/maps/place/${home.address.latitude},${home.address.longitude}`;
           return (<div key={home._id}>
             <Link to={`/search/${home._id}`}><img src={home.img} alt='homepic'className="homelistimg" /></Link>
-            <div className="homelistdes">{home.description}</div>
+            <div className="homelistdes">{home.description}
+              <br /><a href={mapslink} target="_maps">View on the Googles</a>
+            </div>
             </div>)
         })}
       </div>

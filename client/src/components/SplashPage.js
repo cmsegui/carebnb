@@ -28,7 +28,9 @@ class SplashPage extends Component {
     return (
       <div className="splash">
         <h1 className="header-giant">Community BnB</h1>
-        <img src="https://i.imgur.com/BYsWnMl.png" className="img-fluid" alt="Responsive image"/>
+        <div className="backgroundimg">
+          <img src="https://i.imgur.com/BYsWnMl.png" className="img-fluid" alt="Responsive"/>
+        </div>
         <div className="button-bar1">
           <Link to={`/user/${this.state.kelly._id}`}>
             <a className="btn btn-primary btn-lg" role="button">

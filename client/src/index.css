@@ -38,8 +38,12 @@ width: 100%;
 
 .splash {
   margin-top: auto;
-
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
+
 
 .button-bar1 {
   position: absolute;
@@ -105,4 +109,8 @@ width: 100%;
 .homelistdes {
   font-size: 24px;
   margin-bottom: 2em;
+}
+
+.backgroundimg {
+
 }
