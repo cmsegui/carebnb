@@ -48,7 +48,7 @@ width: 100%;
 .button-bar1 {
   position: absolute;
   top: 420px;
-  left: 475px;
+  left: 545px;
   width: 450px;
   margin: auto;
 }
@@ -111,6 +111,7 @@ width: 100%;
   margin-bottom: 2em;
 }
 
-.backgroundimg {
-
+.backbutton {
+  text-align: center;
+  font-size: 36px;
 }
