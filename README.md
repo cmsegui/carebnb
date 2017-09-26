@@ -1,4 +1,4 @@
-<img src="communitybnb.herokuapp.com">
+<img src="https://i.imgur.com/6cbBZoMl.png">
 
 Community BnB is a proof of concept... An Airbnb for displaced victims of natural disasters and the volunteers who'd like to open up their homes for free.<br>
 For future development, I'd like to incorporate Google OAuth as a way to sign in securely.  I'd also like to continue building on to the home seekers side of the app.
